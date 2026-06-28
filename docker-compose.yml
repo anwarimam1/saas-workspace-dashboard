@@ -1,0 +1,63 @@
+services:
+
+  postgres:
+    image: postgres:16
+    container_name: workspace-postgres
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: dashboard_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+
+    volumes:
+      - 78b095c6f94d6af5981eab68ec12f13287a49496d67df55d7e0ec919575307dc:/var/lib/postgresql/data
+
+    networks:
+      - workspace-network
+
+  backend:
+    build:
+      context: ./backend
+
+    container_name: workspace-backend
+    restart: unless-stopped
+
+    depends_on:
+      - postgres
+
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/dashboard_db
+      DB_USERNAME: postgres
+      DB_PASSWORD: password
+      API_KEY: ${API_KEY}
+
+    ports:
+      - "8080:8080"
+
+    networks:
+      - workspace-network
+
+  frontend:
+    build:
+      context: ./frontend
+
+    container_name: workspace-frontend
+    restart: unless-stopped
+
+    depends_on:
+      - backend
+
+    ports:
+      - "3000:80"
+
+    networks:
+      - workspace-network
+
+volumes:
+  78b095c6f94d6af5981eab68ec12f13287a49496d67df55d7e0ec919575307dc:
+    external: true
+
+networks:
+  workspace-network:
+    external: true

@@ -24,3 +24,8 @@ backend/target/
 # OS files
 .DS_Store
 Thumbs.db
+
+.env
+backend/target/
+frontend/node_modules/
+frontend/dist/
