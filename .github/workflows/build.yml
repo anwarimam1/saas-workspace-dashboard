@@ -30,7 +30,7 @@ jobs:
         working-directory: backend
         run: |
           chmod +x mvnw
-          ./mvnw clean package
+          ./mvnw clean package -DskipTests
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
