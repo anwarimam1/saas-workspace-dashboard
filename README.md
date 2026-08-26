@@ -1,238 +1,119 @@
-# AI-Powered SaaS Workspace Management Dashboard
+# SaaS Workspace Analytics Dashboard
 
-A full-stack SaaS application for managing users and workspaces with role-based access control, JWT authentication, AI-powered analytics, and Dockerized deployment.
+> Production-style full-stack SaaS analytics platform built with Spring Boot, React, PostgreSQL, Docker, Nginx, GitHub Actions, and AWS EC2.
 
-## Features
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?logo=springboot&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+![AWS EC2](https://img.shields.io/badge/AWS_EC2-FF9900?logo=amazonaws&logoColor=white)
 
-### Authentication & Authorization
+## Live Demo
 
-* JWT-based authentication
-* Secure login system
-* Role-based access control (ADMIN / USER)
-* Protected routes and APIs
+| Resource | Link |
+|----------|------|
+| Live Application | http://15.207.55.33 |
+| GitHub Repository | Your GitHub Repository Link |
 
-### User Management
+### Demo Credentials
 
-* Create and manage users
-* Assign roles
-* View user details
-* Admin-only operations
+| Field | Value |
+|-------|-------|
+| Email | demo@test.com |
+| Password | Demo@123 |
 
-### Workspace Management
+## Project Overview
 
-* Create workspaces
-* Update workspace details
-* Delete workspaces
-* Track workspace information
+This project simulates a production-style SaaS application where users authenticate securely, manage workspaces, and access role-based functionality through a Dockerized deployment on AWS EC2.
 
-### AI-Powered Insights
+### Key Features
 
-* AI-generated workspace analytics
-* Administrative insights dashboard
-* AI service abstraction supporting multiple providers
-* Prompt engineering and analytics reporting
+- JWT Authentication
+- Role-Based Access Control (RBAC)
+- PostgreSQL Integration
+- Gemini AI Integration
+- Dockerized Deployment
+- Nginx Reverse Proxy
+- GitHub Actions CI Pipeline
+- AWS EC2 Deployment
 
-### Dashboard
+## Architecture
 
-* Admin dashboard
-* User dashboard
-* Workspace statistics
-* Responsive UI
+Internet Users -> Host Nginx (Port 80) -> Spring Boot (127.0.0.1:8080) -> PostgreSQL
 
-### Dockerized Architecture
+### Request Flow
 
-* Frontend containerized with Docker
-* Backend containerized with Docker
-* PostgreSQL containerized with Docker
-* Inter-container networking
-
----
+1. Browser requests reach Nginx.
+2. Nginx serves the React frontend.
+3. `/api` requests are proxied internally.
+4. Spring Boot processes business logic.
+5. PostgreSQL stores persistent data.
 
 ## Tech Stack
 
-### Frontend
-
-* React
-* Vite
-* React Router
-* Axios
-* Recharts
-* Tailwind CSS
-
-### Backend
-
-* Java 24
-* Spring Boot
-* Spring Security
-* Spring Data JPA
-* JWT Authentication
-* Maven
-
-### Database
-
-* PostgreSQL
-
-### AI Integration
-
-* Gemini API
-* Ollama Integration
-
-### DevOps & Deployment
-
-* Docker
-* Docker Networking
-* Git & GitHub
-
----
-
-## System Architecture
-
-```text
-React Frontend
-       |
-       v
-Spring Boot REST API
-       |
-       v
-Spring Security + JWT
-       |
-       v
-PostgreSQL Database
-
-       |
-       +------> AI Analytics Layer
-                    |
-                    +--> Gemini
-                    +--> Ollama
-```
-
----
+| Layer | Technology |
+|--------|------------|
+| Frontend | React, Vite, Axios |
+| Backend | Spring Boot, Spring Security |
+| ORM | Spring Data JPA, Hibernate |
+| Database | PostgreSQL |
+| Authentication | JWT |
+| AI | Gemini API |
+| DevOps | Docker, Docker Compose |
+| Reverse Proxy | Nginx |
+| CI | GitHub Actions |
+| Cloud | AWS EC2 |
+| OS | Amazon Linux 2023 |
 
 ## Project Structure
 
 ```text
-saas-workspace-dashboard
+saas-dashboard/
+├── backend/
+│   ├── controller/
+│   ├── service/
+│   ├── repository/
+│   ├── entity/
+│   ├── security/
+│   └── config/
 │
-├── frontend
-│   ├── src
-│   ├── public
-│   ├── Dockerfile
-│   └── package.json
+├── frontend/
+│   ├── src/
+│   ├── components/
+│   ├── pages/
+│   └── api/
 │
-├── backend
-│   ├── src
-│   ├── Dockerfile
-│   ├── pom.xml
-│   └── application.properties
-│
+├── docker-compose.yml
 └── README.md
 ```
 
----
+## Deployment
 
-## Running Locally
+The application is deployed on AWS EC2 using Docker.
 
-### Backend
+### Production Setup
 
-```bash
-cd backend
-mvn spring-boot:run
-```
+- React served through Host Nginx
+- Spring Boot accessible only through `127.0.0.1:8080`
+- PostgreSQL running inside Docker
+- Docker Compose orchestration
+- Reverse proxy routing through Nginx
 
-### Frontend
+## CI Pipeline
 
-```bash
-cd frontend
-npm install
-npm run dev
-```
+Every push triggers GitHub Actions to:
 
----
+1. Build the Spring Boot application.
+2. Build the React application.
+3. Create Docker images.
+4. Publish images to Docker Hub.
 
-## Docker Setup
+## Key Challenges Solved
 
-### Build Backend Image
-
-```bash
-docker build -t workspace-dashboard-backend ./backend
-```
-
-### Build Frontend Image
-
-```bash
-docker build -t workspace-dashboard-frontend ./frontend
-```
-
-### Run PostgreSQL
-
-```bash
-docker run --name workspace-postgres \
--e POSTGRES_DB=dashboard_db \
--e POSTGRES_USER=postgres \
--e POSTGRES_PASSWORD=password \
--p 5433:5432 \
--d postgres:16
-```
-
-### Run Backend
-
-```bash
-docker run --name workspace-backend \
---network workspace-network \
--e DB_URL=jdbc:postgresql://workspace-postgres:5432/dashboard_db \
--e DB_USERNAME=postgres \
--e DB_PASSWORD=password \
--p 8080:8080 \
--d workspace-dashboard-backend
-```
-
-### Run Frontend
-
-```bash
-docker run --name workspace-frontend \
--p 3000:80 \
--d workspace-dashboard-frontend
-```
-
----
-
-## Security
-
-* JWT Authentication
-* Role-based authorization
-* Protected REST endpoints
-* Password hashing with BCrypt
-* Secure API communication
-
----
-
-## Key Learning Outcomes
-
-* Full-stack application development
-* Spring Security and JWT authentication
-* REST API design
-* PostgreSQL database management
-* Docker containerization
-* Database migration and backup/restore
-* AI integration in enterprise applications
-* Role-based access control implementation
-
----
-
-## Future Improvements
-
-* Docker Compose orchestration
-* CI/CD pipeline with GitHub Actions
-* Cloud deployment (AWS / Azure)
-* Refresh tokens
-* User registration workflow
-* Monitoring and observability
-* Automated testing coverage
-
----
-
-## Author
-
-**Anwar Imam**
-
-GitHub: https://github.com/anwarimam1
+| Challenge | Solution |
+|------------|----------|
+| React calling localhost APIs | Switched Axios to relative `/api` routing |
+| Backend publicly exposed | Bound Spring Boot to `127.0.0.1` |
+| Reverse proxy configuration | Configured Host Nginx for `/` and `/api` |
+| Docker networking | Used Docker Compose networking |
+| Production login failure | Fixed duplicate `/api/api` routing |
