@@ -12,7 +12,7 @@
 
 | Resource | Link |
 |----------|------|
-| Live Application | http://15.207.55.33 |
+| Live Application | https://dashcore.duckdns.org/ |
 | GitHub Repository | Your GitHub Repository Link |
 
 ### Demo Credentials
