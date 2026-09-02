@@ -117,3 +117,11 @@ Every push triggers GitHub Actions to:
 | Reverse proxy configuration | Configured Host Nginx for `/` and `/api` |
 | Docker networking | Used Docker Compose networking |
 | Production login failure | Fixed duplicate `/api/api` routing |
+
+## Future Improvements
+
+- HTTPS with Let's Encrypt
+- Custom Domain
+- Automated Continuous Deployment
+- Redis Caching
+- Kubernetes Deployment
